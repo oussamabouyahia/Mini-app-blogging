@@ -35,11 +35,13 @@ const login = async (req, res) => {
     const match = await bcrypt.compare(password, user.password);
     if (match) {
       const token = jwt.sign({ id: user._id }, process.env.ACCES_TOKEN_SECRET, {
-        expiresIn: "45s", // I choose 45s only for test and it is not true for real case
+        expiresIn: "75s", // I choose 75s only for test which isn't the real case
       });
-      res
-        .status(200)
-        .json({ message: `${user.name} loggedin successfully`, token });
+      res.status(200).json({
+        message: `${user.name} loggedin successfully`,
+        token,
+        userId: user._id,
+      });
     } else {
       res.status(401).json({ error: "unauthorized access , wrong password" });
     }
