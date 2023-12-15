@@ -8,7 +8,6 @@ import {
   FormHelperText,
 } from "@chakra-ui/react";
 import axios from "axios";
-import AlertComponent from "./AlertComponent";
 import { UserType } from "../type";
 
 const Register = () => {
@@ -58,7 +57,6 @@ const Register = () => {
   };
   return (
     <div style={{ marginTop: "10%" }}>
-      <AlertComponent />
       <h2>Create new account</h2>
       <FormControl isInvalid={isErrorName()}>
         <FormLabel>name</FormLabel>

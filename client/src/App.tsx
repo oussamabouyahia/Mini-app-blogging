@@ -3,6 +3,7 @@ import { Link, Route, Routes, BrowserRouter } from "react-router-dom";
 import "./App.css";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
+import Listposts from "./Components/Listposts";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/posts" element={<Listposts />} />
         </Routes>
       </BrowserRouter>
     </>

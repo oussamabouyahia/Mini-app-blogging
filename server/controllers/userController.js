@@ -51,4 +51,16 @@ const login = async (req, res) => {
       .json({ error: error.message || "internal server problem" });
   }
 };
+const users = async (req, res) => {
+  try {
+    const listOfUsers = await user.find();
+    listOfUsers.length
+      ? res.status(200).json({ listOfUsers })
+      : res.status(404).json({ error: "no users found!" });
+  } catch (error) {
+    res
+      .status(error.status || 500)
+      .json({ error: error.message || "internal server issue" });
+  }
+};
 module.exports = { register, login };

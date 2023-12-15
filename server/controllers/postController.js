@@ -1,4 +1,5 @@
 const Post = require("../db/postModel");
+const User = require("../db/userModel");
 require("dotenv").config();
 
 const createPost = async (req, res) => {
@@ -19,9 +20,28 @@ const createPost = async (req, res) => {
 const allPosts = async (req, res) => {
   try {
     const postsList = await Post.find();
-    postsList.length > 0
-      ? res.status(200).json({ postsList })
-      : res.status(404).send("no posts found");
+    if (postsList.length > 0) {
+      const promises = postsList.map(async (e) => {
+        try {
+          const user = await User.findById(e.userId);
+
+          return {
+            _id: e._id,
+            userId: e.userId,
+            title: e.title,
+            content: e.content,
+            userName: user.name,
+          };
+        } catch (error) {
+          // Handle errors in the User.findById operation
+          console.error(
+            `Error fetching user for postId ${e._id}: ${error.message}`
+          );
+        }
+      });
+      const list = await Promise.all(promises);
+      res.status(200).json({ list });
+    } else res.status(404).send("no posts found");
   } catch (error) {
     res
       .status(error.status || 500)

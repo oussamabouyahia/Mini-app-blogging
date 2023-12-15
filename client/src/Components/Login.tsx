@@ -8,7 +8,7 @@ import {
   FormHelperText,
 } from "@chakra-ui/react";
 import axios from "axios";
-import AlertComponent from "./AlertComponent";
+
 import { LoginUser } from "../type";
 const Login = () => {
   //input is the user object
