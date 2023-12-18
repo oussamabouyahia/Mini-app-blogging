@@ -1,3 +1,4 @@
+import { UpdateType } from "./type";
 export interface UserType {
   name: string;
   email: string;
@@ -7,15 +8,19 @@ export interface LoginUser {
   email: string;
   password: string;
 }
-export interface PostUser {
-  content: string;
+export interface UpdateType {
   title: string;
-  userId: string;
-  _id: number;
-  userName: string;
+  content: string;
 }
 export interface PostType {
-  userName: string;
-  title: string;
   content: string;
+  title: string;
+  userId?: string;
+  _id?: number;
+  userName: string;
+  deletePost?: () => void;
+  editPost?: () => void;
+  setUpdateTitle?: React.Dispatch<React.SetStateAction<string>>;
+  setUpdateContent?: React.Dispatch<React.SetStateAction<string>>;
+  updateTitle?: string;
 }

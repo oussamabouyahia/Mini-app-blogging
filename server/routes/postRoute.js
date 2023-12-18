@@ -4,7 +4,7 @@ const validate = require("../Middlewares/postValidation"); //middleware for vali
 const postController = require("../controllers/postController");
 const authorization = require("../Middlewares/authorization"); // authorization middleware
 
-router.get("/", postController.allPosts);
+router.get("/", authorization, postController.allPosts);
 router.post(
   "/:userId",
   authorization,

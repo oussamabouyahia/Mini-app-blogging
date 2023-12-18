@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -8,9 +8,27 @@ import {
   Box,
   StackDivider,
   Text,
+  Button,
+  Input,
 } from "@chakra-ui/react";
+import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+
 import { PostType } from "../type";
-const Post = ({ userName, title, content }: PostType) => {
+const Post = ({
+  userName,
+  title,
+  content,
+  userId,
+  deletePost,
+  editPost,
+  setUpdateTitle,
+  setUpdateContent,
+}: PostType) => {
+  const [edit, setEdit] = useState<boolean>(false);
+  useEffect(() => {
+    setUpdateTitle ? setUpdateTitle(title) : null;
+    setUpdateContent ? setUpdateContent(content) : null;
+  }, []);
   return (
     <Card style={{ margin: "10%" }}>
       <CardHeader>
@@ -21,12 +39,45 @@ const Post = ({ userName, title, content }: PostType) => {
         <Stack divider={<StackDivider />} spacing="4">
           <Box>
             <Heading size="xs" textTransform="uppercase">
-              {title}
+              {edit ? (
+                <Input
+                  type="text"
+                  defaultValue={title}
+                  onChange={(e) => {
+                    setUpdateTitle ? setUpdateTitle(e.target.value) : null;
+                  }}
+                />
+              ) : (
+                title
+              )}
             </Heading>
             <Text pt="2" fontSize="sm">
-              {content}
+              {edit ? (
+                <Input
+                  type="text"
+                  defaultValue={content}
+                  onChange={(e) => {
+                    setUpdateContent ? setUpdateContent(e.target.value) : null;
+                  }}
+                />
+              ) : (
+                content
+              )}
             </Text>
           </Box>
+          {userId === localStorage.getItem("userId") && (
+            <Box>
+              <Button onClick={deletePost}>
+                <DeleteIcon color="red" />
+              </Button>
+              <Button style={{ margin: "3%" }} onClick={() => setEdit(true)}>
+                <EditIcon color="blue" />
+              </Button>
+              <Button color="green" onClick={editPost}>
+                Save update
+              </Button>
+            </Box>
+          )}
         </Stack>
       </CardBody>
     </Card>

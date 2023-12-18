@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { Link, Route, Routes, BrowserRouter } from "react-router-dom";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 import "./App.css";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
 import Listposts from "./Components/Listposts";
+import { CreatePost } from "./Components/CreatePost";
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
           <Route path="/" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/posts" element={<Listposts />} />
+          <Route path="/createpost" element={<CreatePost />} />
         </Routes>
       </BrowserRouter>
     </>

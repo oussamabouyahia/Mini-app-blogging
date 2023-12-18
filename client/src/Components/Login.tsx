@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   FormControl,
   FormLabel,
@@ -16,6 +17,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput((prev) => {
@@ -42,9 +44,12 @@ const Login = () => {
   const login = () => {
     axios
       .post("http://localhost:5000/user/login", input)
-      .then(() => {
+      .then((res) => {
+        localStorage.setItem("userId", res.data.userId);
+        localStorage.setItem("access_token", res.data.token);
         setInput({ email: "", password: "" });
         alert("logged in successfully");
+        navigate("/posts");
       })
       .catch((err) => alert(err.message));
   };
@@ -91,7 +96,7 @@ const Login = () => {
         onClick={login}
         isDisabled={isErrorEmail() || isErrorPassword()}
       >
-        Sign up
+        Sign in
       </Button>
     </div>
   );
