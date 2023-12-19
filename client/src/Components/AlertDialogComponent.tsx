@@ -11,11 +11,11 @@ import {
 import { DeleteIcon } from "@chakra-ui/icons";
 import React from "react";
 interface AlertProps {
-  onDelete: () => void;
+  onDelete: (() => void) | undefined;
 }
 export default function AlertDialogComponent({ onDelete }: AlertProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const cancelRef = React.useRef();
+  const cancelRef = React.createRef<HTMLButtonElement>();
 
   return (
     <>
@@ -45,7 +45,7 @@ export default function AlertDialogComponent({ onDelete }: AlertProps) {
               <Button
                 colorScheme="red"
                 onClick={() => {
-                  onDelete();
+                  onDelete ? onDelete() : null;
                   onClose();
                 }}
                 ml={3}

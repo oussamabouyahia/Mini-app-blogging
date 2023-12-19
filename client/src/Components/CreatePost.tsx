@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Textarea, Input, Button } from "@chakra-ui/react";
 import { UpdateType } from "../type";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 export const CreatePost = () => {
   const [post, setPost] = useState<UpdateType>({ title: "", content: "" });
-
+  const navigate = useNavigate();
   const createPost = () => {
     const userId = localStorage.getItem("userId");
     axios
@@ -16,6 +17,7 @@ export const CreatePost = () => {
       .then((res) => {
         alert(res.data.message);
         setPost({ title: "", content: "" });
+        navigate("/posts");
       })
       .catch((err) => alert(err.message));
   };

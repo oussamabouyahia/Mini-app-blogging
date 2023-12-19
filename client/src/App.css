@@ -2,7 +2,7 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
+  /* text-align: center; */
 }
 
 @keyframes logo-spin {
@@ -26,4 +26,12 @@
 
 .read-the-docs {
   color: #888;
+}
+.linkBloc {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.link {
+  margin: 5%;
 }

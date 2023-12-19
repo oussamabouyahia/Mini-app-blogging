@@ -1,4 +1,4 @@
-import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { Route, Routes, BrowserRouter, Link } from "react-router-dom";
 import "./App.css";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
@@ -9,7 +9,22 @@ function App() {
   return (
     <>
       <h1>BLOGGING APP</h1>
+
       <BrowserRouter>
+        <div className="linkBloc">
+          <Link className="link" to="/posts">
+            Posts
+          </Link>
+          <Link className="link" to="createpost">
+            Create Post
+          </Link>
+          <Link className="link" to="/">
+            Register
+          </Link>
+          <Link className="link" to="/login">
+            Login
+          </Link>
+        </div>
         <Routes>
           <Route path="/" element={<Register />} />
           <Route path="/login" element={<Login />} />

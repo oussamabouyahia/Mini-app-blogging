@@ -98,6 +98,12 @@ const Login = () => {
       >
         Sign in
       </Button>
+      <span
+        style={{ color: "blue", margin: "5%", cursor: "pointer" }}
+        onClick={() => navigate("/")}
+      >
+        I don't have an account
+      </span>
     </div>
   );
 };

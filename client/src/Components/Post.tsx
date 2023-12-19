@@ -68,9 +68,6 @@ const Post = ({
           </Box>
           {userId === localStorage.getItem("userId") && (
             <Box>
-              {/* <Button onClick={deletePost}>
-                <DeleteIcon color="red" />
-              </Button> */}
               <AlertDialogComponent onDelete={deletePost} />
               <Button style={{ margin: "3%" }} onClick={() => setEdit(true)}>
                 <EditIcon color="blue" />

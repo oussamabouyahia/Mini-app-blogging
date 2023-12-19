@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { UserType } from "../type";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   //input is the user object
@@ -17,7 +18,7 @@ const Register = () => {
     email: "",
     password: "",
   });
-
+  const navigate = useNavigate();
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput((prev) => {
       return { ...prev, email: e.target.value };
@@ -115,6 +116,12 @@ const Register = () => {
       >
         Sign up
       </Button>
+      <span
+        style={{ color: "blue", margin: "5%", cursor: "pointer" }}
+        onClick={() => navigate("/login")}
+      >
+        Already have an account
+      </span>
     </div>
   );
 };
