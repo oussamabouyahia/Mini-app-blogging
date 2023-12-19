@@ -11,9 +11,10 @@ import {
   Button,
   Input,
 } from "@chakra-ui/react";
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { EditIcon } from "@chakra-ui/icons";
 
 import { PostType } from "../type";
+import AlertDialogComponent from "./AlertDialogComponent";
 const Post = ({
   userName,
   title,
@@ -67,9 +68,10 @@ const Post = ({
           </Box>
           {userId === localStorage.getItem("userId") && (
             <Box>
-              <Button onClick={deletePost}>
+              {/* <Button onClick={deletePost}>
                 <DeleteIcon color="red" />
-              </Button>
+              </Button> */}
+              <AlertDialogComponent onDelete={deletePost} />
               <Button style={{ margin: "3%" }} onClick={() => setEdit(true)}>
                 <EditIcon color="blue" />
               </Button>

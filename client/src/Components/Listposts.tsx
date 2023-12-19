@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { PostType } from "../type";
 import Post from "./Post";
+
 const Listposts = () => {
   const [posts, setPosts] = useState<PostType[]>([]); // posts from the server
   const [updateTitle, setUpdateTitle] = useState<string>("");
   const [updateContent, setUpdateContent] = useState<string>("");
   const navigate = useNavigate();
+
   useEffect(() => {
     const access_token = localStorage.getItem("access_token");
     if (access_token) {
@@ -27,7 +29,9 @@ const Listposts = () => {
   const deletePost = (postId: number | undefined) => {
     axios
       .delete(`http://localhost:5000/post/${postId}`)
-      .then((res) => alert(res.data.message))
+      .then((res) => {
+        alert(res.data.message);
+      })
       .catch((err) => alert(err.message));
   };
   const editPost = (postId: number | undefined) => {

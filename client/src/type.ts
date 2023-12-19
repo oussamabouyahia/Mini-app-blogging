@@ -1,4 +1,3 @@
-import { UpdateType } from "./type";
 export interface UserType {
   name: string;
   email: string;

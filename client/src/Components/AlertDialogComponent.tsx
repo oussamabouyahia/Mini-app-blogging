@@ -8,16 +8,19 @@ import {
   useDisclosure,
   Button,
 } from "@chakra-ui/react";
+import { DeleteIcon } from "@chakra-ui/icons";
 import React from "react";
-
-export default function AlertDialogComponent() {
+interface AlertProps {
+  onDelete: () => void;
+}
+export default function AlertDialogComponent({ onDelete }: AlertProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef();
 
   return (
     <>
       <Button colorScheme="red" onClick={onOpen}>
-        Delete Customer
+        <DeleteIcon />
       </Button>
 
       <AlertDialog
@@ -32,14 +35,21 @@ export default function AlertDialogComponent() {
             </AlertDialogHeader>
 
             <AlertDialogBody>
-              Are you sure? You can't undo this action afterwards.
+              Are you sure to delete this post ? You can't undo this action .
             </AlertDialogBody>
 
             <AlertDialogFooter>
               <Button ref={cancelRef} onClick={onClose}>
                 Cancel
               </Button>
-              <Button colorScheme="red" onClick={onClose} ml={3}>
+              <Button
+                colorScheme="red"
+                onClick={() => {
+                  onDelete();
+                  onClose();
+                }}
+                ml={3}
+              >
                 Delete
               </Button>
             </AlertDialogFooter>
