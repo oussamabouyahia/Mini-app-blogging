@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { PostType } from "../type";
 import Post from "./Post";
-
+import io from "socket.io-client";
+const socket = io.connect("http://localhost:5000");
 const Listposts = () => {
   const [posts, setPosts] = useState<PostType[]>([]); // posts from the server
   const [updateTitle, setUpdateTitle] = useState<string>("");
@@ -12,6 +13,7 @@ const Listposts = () => {
 
   useEffect(() => {
     const access_token = localStorage.getItem("access_token");
+    socket.on("test", (data: string) => console.log(data));
     if (access_token) {
       axios
         .get("http://localhost:5000/post", {

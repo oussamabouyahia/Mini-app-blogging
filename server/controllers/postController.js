@@ -8,9 +8,9 @@ const createPost = async (req, res) => {
   try {
     const newPost = new Post({ userId, title, content });
     await newPost.save();
-    if (newPost)
+    if (newPost) {
       res.status(201).json({ message: "new post created successfully!" });
-    else res.status(400).json({ message: "something went wrong" });
+    } else res.status(400).json({ message: "something went wrong" });
   } catch (error) {
     res
       .status(error.status || 500)
