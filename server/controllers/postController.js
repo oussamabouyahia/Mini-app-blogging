@@ -1,7 +1,8 @@
 const Post = require("../db/postModel");
 const User = require("../db/userModel");
 require("dotenv").config();
-
+const socket = require("../socket");
+const io = socket.getIo();
 const createPost = async (req, res) => {
   const { userId } = req.params;
   const { title, content } = req.body;
@@ -9,6 +10,8 @@ const createPost = async (req, res) => {
     const newPost = new Post({ userId, title, content });
     await newPost.save();
     if (newPost) {
+      const list = await Post.find();
+      io.emit("post_created", list);
       res.status(201).json({ message: "new post created successfully!" });
     } else res.status(400).json({ message: "something went wrong" });
   } catch (error) {

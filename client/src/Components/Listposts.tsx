@@ -4,7 +4,7 @@ import axios from "axios";
 import { PostType } from "../type";
 import Post from "./Post";
 import io from "socket.io-client";
-const socket = io.connect("http://localhost:5000");
+const socket = io("http://localhost:5000");
 const Listposts = () => {
   const [posts, setPosts] = useState<PostType[]>([]); // posts from the server
   const [updateTitle, setUpdateTitle] = useState<string>("");
@@ -13,7 +13,7 @@ const Listposts = () => {
 
   useEffect(() => {
     const access_token = localStorage.getItem("access_token");
-    socket.on("test", (data: string) => console.log(data));
+
     if (access_token) {
       axios
         .get("http://localhost:5000/post", {
@@ -27,7 +27,11 @@ const Listposts = () => {
       alert("unauthorized , user not signed in");
       navigate("/login");
     }
-  }, [navigate]);
+    socket.on("post_created", (data: PostType[]) => {
+      console.log(data[data.length - 1].title);
+      setPosts(data);
+    });
+  }, [navigate, posts]);
   const deletePost = (postId: number | undefined) => {
     axios
       .delete(`http://localhost:5000/post/${postId}`)

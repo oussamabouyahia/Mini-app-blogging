@@ -13,7 +13,8 @@ const io = new Server(httpServer, {
     methods: ["GET", "POST"],
   },
 });
-
+const socket = require("./socket");
+socket.setIo(io);
 app.use(express.json());
 app.use(cors());
 //general middleware for errors handling
@@ -24,15 +25,12 @@ app.use((err, req, res, next) => {
       .json({ error: err.message || "internal server porblem" });
   else next();
 });
-app.use("/user", require("./routes/useRoute"));
-app.use("/post", require("./routes/postRoute"));
-app.get("/io", (req, res) => {
-  io.emit("test", "hello world");
-  res.send("hello");
-});
+
 io.on("connection", (socket) => {
   console.log(socket.id);
 });
+app.use("/user", require("./routes/useRoute"));
+app.use("/post", require("./routes/postRoute"));
 
 httpServer.listen(PORT, () => {
   console.log(`server is running on port ${PORT}`);
